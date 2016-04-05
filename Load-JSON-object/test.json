@@ -1,11 +1,5 @@
 {
-    "name":"Thor",
-    "str":34,
-    "dex":45,
-    "int":33,
-    "wis":21,
-    "enemy":"Loki"
+    "name": "Thor",
+    "str": 34,
+    "enemy": "Loki"
 }
-    
-
-
