@@ -11,6 +11,7 @@ QT       -= gui
 TARGET = Load-JSON-array
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG += C++11
 
 TEMPLATE = app
 
