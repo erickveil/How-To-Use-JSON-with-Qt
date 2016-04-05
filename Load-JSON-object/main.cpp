@@ -17,22 +17,22 @@ int main(int argc, char *argv[])
         exit(1);
     }
     QTextStream file_text(&file_obj);
-    //qDebug()<<"File contents:"<<endl<<file_text.readAll()<<endl;
-
 
     // stream to string
     QString json_string;
     json_string=file_text.readAll();
-    int stream_size=json_string.size();
+
+    file_obj.close();
+
     qDebug()<<"json string: "<<endl<<json_string<<endl;
 
     // string to byte array
     QByteArray json_byte=json_string.toLocal8Bit();
 
+
     // convert string to json object
     auto json_doc =
             QJsonDocument::fromJson(json_byte);
-    qDebug() << "Json Doc: " << json_doc.rawData(&stream_size);
 
 
     if(json_doc.isNull()){
@@ -57,11 +57,15 @@ int main(int argc, char *argv[])
 
 
     // get expected members of the object
+    QVariantMap json_map = json_obj.toVariantMap();
 
     // print the vlaues
 
+    qDebug()<<json_map["name"].toString();
+    qDebug()<<json_map["str"].toInt();
+    qDebug()<<json_map["enemy"].toString();
 
-    file_obj.close();
+
 
     return a.exec();
 }
