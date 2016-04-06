@@ -9,12 +9,10 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    // using object initializer list
-    QJsonObject stats_obj {
-        {"name","Thor"},
-        {"str",34},
-        {"enemy","Loki"}
-    };
+    QJsonObject stats_obj;
+    stats_obj["name"]="Thor";
+    stats_obj["str"]=34;
+    stats_obj["enemy"]="Loki";
 
     // using QList stream initialization
     QJsonArray inventory_list;
@@ -22,16 +20,20 @@ int main(int argc, char *argv[])
 
     // using insert method
     QJsonObject root_obj;
-    root_obj.insert(stats_obj);
-    root_obj.insert(inventory_list);
+    root_obj.insert("stats",stats_obj);
+    root_obj.insert("inventory",inventory_list);
 
     QJsonDocument json_doc(root_obj);
     QString json_string = json_doc.toJson();
 
     QString file_path = "/home/eveil/test_deep.json";
+    QFile save_file(file_path);
+    if(!save_file.open(QIODevice::WriteOnly)){
+        qDebug() << "Faild to open save file";
+    }
 
-
-
+    save_file.write(json_string.toLocal8Bit());
+    save_file.close();
 
 
     return a.exec();
